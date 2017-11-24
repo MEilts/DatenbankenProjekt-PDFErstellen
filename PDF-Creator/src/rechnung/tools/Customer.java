@@ -18,11 +18,11 @@ import java.util.List;
  */
 public class Customer {
     
-    private Integer id;
-    private String firstname;
-    private String lastname;
-    private String street;
-    private String city;
+    public Integer id;
+    public String firstname;
+    public String lastname;
+    public String street;
+    public String city;
 
     public Customer() {
         this(null, null, null, null, null);
@@ -55,7 +55,7 @@ public class Customer {
                 c.id = rs.getInt("Id");
                 c.firstname = rs.getString("firstname");
                 c.lastname = rs.getString("lastname");
-                c.street = rs.getString("lastname");
+                c.street = rs.getString("Street");
                 c.city = rs.getString("city");
             }
         } catch (SQLException ex) {
@@ -76,8 +76,8 @@ public class Customer {
             if (rs.next()) {
                 C = new Customer();
                 C.id = rs.getInt("Id");
-                C.firstname = rs.getString("Name");
-                C.lastname = rs.getString("Price");
+                C.firstname = rs.getString("firstname");
+                C.lastname = rs.getString("lastname");
                 C.street = rs.getString("Street");
                 C.city = rs.getString("city");
             }
@@ -108,5 +108,9 @@ public class Customer {
 
         return list;
     }      
-    
+            
+    @Override
+    public String toString(){
+    return firstname + " " + lastname + System.lineSeparator() +"  "+ street + System.lineSeparator() +"  "+ city;
+    }
 }
