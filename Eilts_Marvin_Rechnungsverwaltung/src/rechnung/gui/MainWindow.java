@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import rechnung.tools.DBTools;
 import rechnung.tools.Bill;
+import rechnung.topdf.CreatePDF;
 
 /**
  *
@@ -75,6 +76,7 @@ public class MainWindow extends javax.swing.JFrame {
         MainMenu = new javax.swing.JMenuBar();
         MenuOrder = new javax.swing.JMenu();
         ShowBill = new javax.swing.JMenuItem();
+        PdfCreate = new javax.swing.JMenuItem();
         CreateOrder = new javax.swing.JMenuItem();
         ChangeOrder = new javax.swing.JMenuItem();
         DeleteOrder = new javax.swing.JMenuItem();
@@ -105,6 +107,14 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
         MenuOrder.add(ShowBill);
+
+        PdfCreate.setText("PDF Erstellen");
+        PdfCreate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PdfCreateActionPerformed(evt);
+            }
+        });
+        MenuOrder.add(PdfCreate);
 
         CreateOrder.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
         CreateOrder.setText("Neue Rechnung");
@@ -267,6 +277,18 @@ public class MainWindow extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }//GEN-LAST:event_DbChangeActionPerformed
+
+    private void PdfCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PdfCreateActionPerformed
+        String OrderNumberIn = JOptionPane.showInputDialog("Rechnungsnummer Eingeben");
+        try {
+            int rIn = Integer.parseInt(OrderNumberIn);
+            Bill rino = Bill.getRechnung(DBTools.getCon(), rIn);
+            CreatePDF.pdf(rino);
+
+        } catch (Exception E) {
+            ShowOrder();
+        }
+    }//GEN-LAST:event_PdfCreateActionPerformed
     
     public String OutputPrint(ResultSet rs) throws SQLException {
         
@@ -323,6 +345,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JMenuItem MenuProduct;
     private javax.swing.JMenu MenuTables;
     private javax.swing.JTextArea OutputWindow;
+    private javax.swing.JMenuItem PdfCreate;
     private javax.swing.JMenuItem ShowBill;
     private javax.swing.JMenu SqlMode;
     private javax.swing.JScrollPane jScrollPane1;
